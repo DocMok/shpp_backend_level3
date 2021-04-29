@@ -65,6 +65,7 @@ class App
             }
         }
 
+        $controllerName = ucfirst($controllerName);
         $controllerName .= 'Controller';
         $result['path'] = 'controllers' . DIRECTORY_SEPARATOR . $controllerName . '.php';
         $result['name'] = $controllerName;
