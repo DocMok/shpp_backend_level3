@@ -4,13 +4,14 @@ require_once 'MigrationConfig.php';
 
 class Migration implements MigrationConfig {
 
-    private PDO $pdo;
+    private $pdo;
 
     public function __construct() {
         try {
-            $this->pdo = new PDO("mysql:host=".self::DB_HOST.";dbname=".self::DB_NAME.";", self::DB_USER, self::DB_PASS);
+            $this->pdo = new PDO("mysql:host=".self::DB_HOST, self::DB_USER, self::DB_PASS);
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
+            die();
         }
     }
 
@@ -40,7 +41,6 @@ class Migration implements MigrationConfig {
             return [];
         } else {
             $queries = array_slice(explode(';', file_get_contents($files[0])), 0, -1);
-
             foreach ($queries as $query) {
                 $this->execute($query);
             }
@@ -70,7 +70,7 @@ class Migration implements MigrationConfig {
      */
     private function getAppliedMigrationsArray(): array
     {
-        $query = 'SELECT `name` FROM `migrations`';
+        $query = "SELECT `name` FROM ".self::DB_NAME."migrations";
         $queryResult = $this->execute($query);
         $result = [];
         foreach($queryResult as $item) {
@@ -89,7 +89,7 @@ class Migration implements MigrationConfig {
             $this->execute($query);
         }
 
-        $query = "INSERT INTO `migrations` (`name`) VALUES (?)";
+        $query = "INSERT INTO ".self::DB_NAME.".migrations (`name`) VALUES (?)";
         $params = [$migrationName];
         $this->execute($query, $params);
     }

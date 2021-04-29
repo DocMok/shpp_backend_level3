@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS `migrations`
+CREATE DATABASE IF NOT EXISTS `library`;
+USE `library`;
+CREATE TABLE IF NOT EXISTS migrations
 (
     `id`   INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
