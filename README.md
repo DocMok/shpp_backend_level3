@@ -1,4 +1,4 @@
-## Minimum requirements
+## Requirements
 **PHP 8.0**,
 **MariaDB 10**,
 **Apache 2**
