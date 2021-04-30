@@ -70,7 +70,7 @@ class Migration implements MigrationConfig {
      */
     private function getAppliedMigrationsArray(): array
     {
-        $query = "SELECT `name` FROM ".self::DB_NAME."migrations";
+        $query = "SELECT `name` FROM migrations";
         $queryResult = $this->execute($query);
         $result = [];
         foreach($queryResult as $item) {
@@ -89,7 +89,7 @@ class Migration implements MigrationConfig {
             $this->execute($query);
         }
 
-        $query = "INSERT INTO ".self::DB_NAME.".migrations (`name`) VALUES (?)";
+        $query = "INSERT INTO migrations (`name`) VALUES (?)";
         $params = [$migrationName];
         $this->execute($query, $params);
     }
